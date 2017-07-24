@@ -13,6 +13,7 @@
     <string name="err_not_found_address">위치를 찾을 수 없습니다</string>
     <string name="progress_saving">저장 중</string>
     <string name="progress_saving_detail">저장 중 입니다</string>
+    <string name="saved">저장되었습니다</string>
     <string name="previous">이전</string>
     <string name="next">다음</string>
     <string name="title_activity_maps">Map</string>

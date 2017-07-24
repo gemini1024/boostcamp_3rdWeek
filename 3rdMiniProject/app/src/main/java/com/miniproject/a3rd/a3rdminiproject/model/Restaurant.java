@@ -1,7 +1,5 @@
 package com.miniproject.a3rd.a3rdminiproject.model;
 
-import java.util.Date;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -11,6 +9,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Restaurant extends RealmObject {
     // intent title
+    public static final String KEY_FIELD        = "id";
     public static final String TITLE_NAME       = "TITLE";
     public static final String ADDRESS_NAME     = "ADDRESS";
     public static final String PHONE_NAME       = "PHONE";
@@ -25,11 +24,9 @@ public class Restaurant extends RealmObject {
     private String content;     // 추가 내용
 
     public Restaurant() {
-        this.id = new Date().getTime();
     }
 
     public Restaurant(String name, String address, String phone, String content) {
-        this();
         this.title = name;
         this.address = address;
         this.phone = phone;
@@ -47,10 +44,6 @@ public class Restaurant extends RealmObject {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getTitle() {

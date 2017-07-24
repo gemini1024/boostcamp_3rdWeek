@@ -2,7 +2,6 @@ package com.miniproject.a3rd.a3rdminiproject;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -132,7 +132,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return true;
         } catch (Exception e) {
             Toast.makeText(this, getString(R.string.err_not_found_address), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            Log.e(e.getClass().getName(), e.getMessage(), e.getCause());
             return false;
         }
     }
@@ -161,17 +161,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @OnClick(R.id.map_bt_next)
     void saveData() {
-        final ProgressDialog progressDialog = ProgressDialog.show(this,
-                getString(R.string.progress_saving), getString(R.string.progress_saving_detail), false, false);
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                Restaurant restaurant = realm.createObject(Restaurant.class, mCurRestaurant.getId());
+                Restaurant restaurant = realm.createObject(Restaurant.class, getNextKey(realm));
                 restaurant.setAll(mCurRestaurant);
-                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
+    }
+
+    private long getNextKey(Realm realm) {
+        Number maxKey = realm.where(Restaurant.class).max(Restaurant.KEY_FIELD);
+        long nextKey;
+        if(maxKey == null) {
+            nextKey = 1;
+        } else {
+            nextKey = maxKey.longValue() +1;
+        }
+        return nextKey;
     }
 
 

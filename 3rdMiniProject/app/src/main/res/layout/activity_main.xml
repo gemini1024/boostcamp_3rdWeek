@@ -54,16 +54,36 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_address" />
 
+    <!--상세 내용 글자 카운터-->
     <TextView
-        android:id="@+id/add_content_num"
+        android:id="@+id/add_content_num_footer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_dimen"
         android:textColor="@android:color/primary_text_light"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_phone"
-        tools:text="@string/add_content_num_header" />
+        app:layout_constraintTop_toBottomOf="@+id/add_phone" />
 
+    <TextView
+        android:id="@+id/add_content_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintBottom_toBottomOf="@+id/add_content_num_footer"
+        app:layout_constraintRight_toLeftOf="@id/add_content_num_footer"
+        app:layout_constraintTop_toTopOf="@+id/add_content_num_footer" />
+
+    <TextView
+        android:id="@+id/add_content_num_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_content_num_header"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintBottom_toBottomOf="@+id/add_content_num_footer"
+        app:layout_constraintRight_toLeftOf="@id/add_content_num"
+        app:layout_constraintTop_toTopOf="@+id/add_content_num_footer" />
+
+    <!--상세 내용-->
     <EditText
         android:id="@+id/add_content"
         style="@style/TextAppearance.AppCompat.Medium"

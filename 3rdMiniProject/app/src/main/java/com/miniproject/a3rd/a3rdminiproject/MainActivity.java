@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.add_title) EditText mTitleView;
     @BindView(R.id.add_address) EditText mAddressView;
     @BindView(R.id.add_phone) EditText mPhoneView;
-    @BindView(R.id.add_content_num) TextView mContentCounterView;
     @BindView(R.id.add_content) EditText mContentView;
 
 
@@ -52,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
         mPhoneView.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         // 내용 글자 수 카운트
-        final String counterHeader = getString(R.string.add_content_num_header);
+        final TextView contentCounterView = (TextView) findViewById(R.id.add_content_num);
         final int contentMaxNum = getResources().getInteger(R.integer.content_max_length);
 
-        mContentCounterView.setText(counterHeader + mContentView.getText().length()+"/"+contentMaxNum);
+        contentCounterView.setText(String.valueOf(mContentView.getText().length()));
+        ((TextView)findViewById(R.id.add_content_num_footer)).setText(String.format("/%d",contentMaxNum));
         mContentView.setHint(String.format(getString(R.string.add_hint_content), contentMaxNum));
         mContentView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -64,12 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mContentCounterView.setText(counterHeader + s.length()+"/"+contentMaxNum);
+                contentCounterView.setText(String.valueOf(s.length()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
